@@ -6,10 +6,7 @@ import { buttonBase, buttonVariants, buttonSizes } from './style';
  * Button component with variants and sizes
  * Uses Linaria for zero-runtime CSS-in-JS
  */
-export const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonNamespace.ButtonProps
->((props: ButtonNamespace.ButtonProps, ref) => {
+export const Button = (props: ButtonNamespace.ButtonProps) => {
   const {
     variant = 'primary',
     size = 'medium',
@@ -33,7 +30,6 @@ export const Button = React.forwardRef<
 
   return (
     <button
-      ref={ref}
       className={combinedClassName}
       disabled={disabled}
       {...rest}
@@ -41,9 +37,7 @@ export const Button = React.forwardRef<
       {children}
     </button>
   );
-});
-
-Button.displayName = 'Button';
+};
 
 export default Button;
 

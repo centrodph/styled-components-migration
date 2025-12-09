@@ -15,6 +15,7 @@
     "react-dom": "18.2.0",
     "@centrodphlibs/button-vanilla-extract": "workspace:*",
     "@centrodphlibs/button-linaria": "workspace:*",
+    "@centrodphlibs/button-linaria-styled": "workspace:*",
     "@centrodphlibs/button-css-modules": "workspace:*",
     "@centrodphlibs/css-modules-theme": "workspace:*",
     "@centrodphlibs/vanilla-extract-theme": "workspace:*",

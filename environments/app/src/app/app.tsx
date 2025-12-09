@@ -2,9 +2,11 @@ import React from 'react';
 import styles from './app.module.css';
 import { Button as ButtonVanillaExtract } from '@centrodphlibs/button-vanilla-extract';
 import { Button as ButtonLinaria } from '@centrodphlibs/button-linaria';
+import { Button as ButtonLinariaStyled } from '@centrodphlibs/button-linaria-styled';
 import { Button as ButtonCssModules } from '@centrodphlibs/button-css-modules';
 import '@centrodphlibs/button-css-modules/style.css';
 import '@centrodphlibs/button-linaria/style.css';
+import '@centrodphlibs/button-linaria-styled/style.css';
 import '@centrodphlibs/button-vanilla-extract/style.css';
 import '@centrodphlibs/vanilla-extract-theme/style.css';
 import '@centrodphlibs/linaria-theme/style.css';
@@ -72,6 +74,31 @@ export function App() {
             <ButtonLinaria variant="primary" disabled>
               Disabled
             </ButtonLinaria>
+          </div>
+        </div>
+
+        {/* Linaria Styled Showcase */}
+        <div className={styles['showcase-section']}>
+          <h3 className={styles['section-title']}>Linaria Styled Function</h3>
+          <p className={styles['section-description']}>
+            Zero-runtime CSS-in-JS using Linaria's styled function
+          </p>
+          <div className={styles['button-group']}>
+            <ButtonLinariaStyled variant="primary" size="small">
+              Primary Small
+            </ButtonLinariaStyled>
+            <ButtonLinariaStyled variant="primary" size="medium">
+              Primary Medium
+            </ButtonLinariaStyled>
+            <ButtonLinariaStyled variant="primary" size="large">
+              Primary Large
+            </ButtonLinariaStyled>
+            <ButtonLinariaStyled variant="secondary">Secondary</ButtonLinariaStyled>
+            <ButtonLinariaStyled variant="outline">Outline</ButtonLinariaStyled>
+            <ButtonLinariaStyled variant="ghost">Ghost</ButtonLinariaStyled>
+            <ButtonLinariaStyled variant="primary" disabled>
+              Disabled
+            </ButtonLinariaStyled>
           </div>
         </div>
 

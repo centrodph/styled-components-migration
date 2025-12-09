@@ -35,10 +35,7 @@ const Ds = {
  * Button component with variants and sizes
  * Uses vanilla-extract for type-safe styling
  */
-export const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonNamespace.ButtonProps
->((props: ButtonNamespace.ButtonProps, ref) => {
+export const Button = (props: ButtonNamespace.ButtonProps) => {
   const {
     variant = 'primary',
     size = 'medium',
@@ -68,8 +65,6 @@ export const Button = React.forwardRef<
       {children}
     </Ds.button>
   );
-});
-
-Button.displayName = 'Button';
+};
 
 export default Button;

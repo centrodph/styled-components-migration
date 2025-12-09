@@ -16,7 +16,8 @@
     "publish:vanilla-extract-theme": "npm run prepare:publish && cd dist/packages/vanilla-extract-theme && npm publish --access public",
     "publish:linaria-theme": "npm run prepare:publish && cd dist/packages/linaria-theme && npm publish --access public",
     "publish:css-modules-theme": "npm run prepare:publish && cd dist/packages/css-modules-theme && npm publish --access public",
-    "publish:all": "npm run build:all && npm run prepare:publish && npm run publish:button-vanilla-extract && npm run publish:button-linaria && npm run publish:button-css-modules && npm run publish:theme && npm run publish:vanilla-extract-theme && npm run publish:linaria-theme && npm run publish:css-modules-theme",
+    "publish:button-linaria-styled": "npm run prepare:publish && cd dist/packages/button-linaria-styled && npm publish --access public",
+    "publish:all": "npm run build:all && npm run prepare:publish && npm run publish:button-vanilla-extract && npm run publish:button-linaria && npm run publish:button-css-modules && npm run publish:theme && npm run publish:vanilla-extract-theme && npm run publish:linaria-theme && npm run publish:css-modules-theme && npm run publish:button-linaria-styled",
     "prepublishOnly": "npm run build:all && npm run prepare:publish"
   },
   "private": true,
