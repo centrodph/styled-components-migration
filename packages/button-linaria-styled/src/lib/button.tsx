@@ -5,9 +5,12 @@ import { themeTokens } from '@centrodphlibs/linaria-theme';
 
 /**
  * Styled button component using Linaria's styled function
- * Uses data attributes for variant and size to apply conditional styles
+ * Handles variants and sizes through props
  */
-const StyledButton = styled.button`
+const StyledButton = styled.button<{
+  $variant: ButtonNamespace.ButtonVariant;
+  $size: ButtonNamespace.ButtonSize;
+}>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -32,83 +35,70 @@ const StyledButton = styled.button`
     pointer-events: none;
   }
 
-  /* Primary variant */
-  &[data-variant='primary'] {
-    background-color: ${themeTokens.colors.primary};
-    color: ${themeTokens.colors.background};
-
-    &:hover:not(:disabled) {
-      background-color: ${themeTokens.colors.secondary};
+  /* Variant styles */
+  ${(props) => {
+    switch (props.$variant) {
+      case 'primary':
+        return `background-color: ${themeTokens.colors.primary};
+          color: ${themeTokens.colors.background};
+          &:hover:not(:disabled) {
+            background-color: ${themeTokens.colors.secondary};
+          }
+          &:active:not(:disabled) {
+            background-color: ${themeTokens.colors.textSecondary};
+          }`;
+      case 'secondary':
+        return `background-color: ${themeTokens.colors.secondary};
+          color: ${themeTokens.colors.background};
+          &:hover:not(:disabled) {
+            background-color: ${themeTokens.colors.textSecondary};
+          }
+          &:active:not(:disabled) {
+            background-color: ${themeTokens.colors.border};
+          }`;
+      case 'outline':
+        return `background-color: transparent;
+          color: ${themeTokens.colors.primary};
+          border: 2px solid ${themeTokens.colors.primary};
+          &:hover:not(:disabled) {
+            background-color: ${themeTokens.colors.surface};
+          }
+          &:active:not(:disabled) {
+            background-color: ${themeTokens.colors.border};
+          }`;
+      case 'ghost':
+        return `background-color: transparent;
+          color: ${themeTokens.colors.primary};
+          &:hover:not(:disabled) {
+            background-color: ${themeTokens.colors.surface};
+          }
+          &:active:not(:disabled) {
+            background-color: ${themeTokens.colors.border};
+          }`;
+      default:
+        return '';
     }
+  }}
 
-    &:active:not(:disabled) {
-      background-color: ${themeTokens.colors.textSecondary};
+  /* Size styles */
+  ${(props) => {
+    switch (props.$size) {
+      case 'small':
+        return `padding: ${themeTokens.spacing.m} ${themeTokens.spacing.l};
+          font-size: 14px;
+          min-height: 32px;`;
+      case 'medium':
+        return `padding: ${themeTokens.spacing.l} calc(${themeTokens.spacing.l} * 5);
+          font-size: 16px;
+          min-height: 40px;`;
+      case 'large':
+        return `padding: calc(${themeTokens.spacing.l} * 2.3) calc(${themeTokens.spacing.l} * 4.7);
+          font-size: 18px;
+          min-height: 48px;`;
+      default:
+        return '';
     }
-  }
-
-  /* Secondary variant */
-  &[data-variant='secondary'] {
-    background-color: ${themeTokens.colors.secondary};
-    color: ${themeTokens.colors.background};
-
-    &:hover:not(:disabled) {
-      background-color: ${themeTokens.colors.textSecondary};
-    }
-
-    &:active:not(:disabled) {
-      background-color: ${themeTokens.colors.border};
-    }
-  }
-
-  /* Outline variant */
-  &[data-variant='outline'] {
-    background-color: transparent;
-    color: ${themeTokens.colors.primary};
-    border: 2px solid ${themeTokens.colors.primary};
-
-    &:hover:not(:disabled) {
-      background-color: ${themeTokens.colors.surface};
-    }
-
-    &:active:not(:disabled) {
-      background-color: ${themeTokens.colors.border};
-    }
-  }
-
-  /* Ghost variant */
-  &[data-variant='ghost'] {
-    background-color: transparent;
-    color: ${themeTokens.colors.primary};
-
-    &:hover:not(:disabled) {
-      background-color: ${themeTokens.colors.surface};
-    }
-
-    &:active:not(:disabled) {
-      background-color: ${themeTokens.colors.border};
-    }
-  }
-
-  /* Small size */
-  &[data-size='small'] {
-    padding: ${themeTokens.spacing.m} ${themeTokens.spacing.l};
-    font-size: 14px;
-    min-height: 32px;
-  }
-
-  /* Medium size */
-  &[data-size='medium'] {
-    padding: ${themeTokens.spacing.l} calc(${themeTokens.spacing.l} * 5);
-    font-size: 16px;
-    min-height: 40px;
-  }
-
-  /* Large size */
-  &[data-size='large'] {
-    padding: calc(${themeTokens.spacing.l} * 2.3) calc(${themeTokens.spacing.l} * 4.7);
-    font-size: 18px;
-    min-height: 48px;
-  }
+  }}
 `;
 
 /**
@@ -125,8 +115,8 @@ export const Button = (props: ButtonNamespace.ButtonProps) => {
 
   return (
     <StyledButton
-      data-variant={variant}
-      data-size={size}
+      $variant={variant}
+      $size={size}
       {...rest}
     >
       {children}
