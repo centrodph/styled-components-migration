@@ -1,0 +1,14 @@
+{
+  "name": "button-tailwind",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/button-tailwind/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true
+    }
+  }
+}
+

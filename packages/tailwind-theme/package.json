@@ -1,0 +1,45 @@
+{
+  "name": "@centrodphlibs/tailwind-theme",
+  "version": "0.0.1",
+  "description": "Tailwind CSS theme configuration based on @centrodphlibs/theme",
+  "keywords": [
+    "tailwind",
+    "theme",
+    "design-system",
+    "css",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [],
+  "peerDependencies": {
+    "@centrodphlibs/theme": "workspace:*",
+    "tailwindcss": "^3.0.0"
+  },
+  "devDependencies": {
+    "vite": "~5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "nx test tailwind-theme"
+  }
+}
+

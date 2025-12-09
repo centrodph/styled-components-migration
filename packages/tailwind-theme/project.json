@@ -1,0 +1,14 @@
+{
+  "name": "tailwind-theme",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/tailwind-theme/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true
+    }
+  }
+}
+

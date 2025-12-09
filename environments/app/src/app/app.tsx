@@ -4,6 +4,7 @@ import { Button as ButtonVanillaExtract } from '@centrodphlibs/button-vanilla-ex
 import { Button as ButtonLinaria } from '@centrodphlibs/button-linaria';
 import { Button as ButtonLinariaStyled } from '@centrodphlibs/button-linaria-styled';
 import { Button as ButtonCssModules } from '@centrodphlibs/button-css-modules';
+import { Button as ButtonTailwind } from '@centrodphlibs/button-tailwind';
 import '@centrodphlibs/button-css-modules/style.css';
 import '@centrodphlibs/button-linaria/style.css';
 import '@centrodphlibs/button-linaria-styled/style.css';
@@ -124,6 +125,31 @@ export function App() {
             <ButtonCssModules variant="primary" disabled>
               Disabled
             </ButtonCssModules>
+          </div>
+        </div>
+
+        {/* Tailwind CSS Showcase */}
+        <div className={styles['showcase-section']}>
+          <h3 className={styles['section-title']}>Tailwind CSS Styling</h3>
+          <p className={styles['section-description']}>
+            Utility-first CSS framework with zero runtime
+          </p>
+          <div className={styles['button-group']}>
+            <ButtonTailwind variant="primary" size="small">
+              Primary Small
+            </ButtonTailwind>
+            <ButtonTailwind variant="primary" size="medium">
+              Primary Medium
+            </ButtonTailwind>
+            <ButtonTailwind variant="primary" size="large">
+              Primary Large
+            </ButtonTailwind>
+            <ButtonTailwind variant="secondary">Secondary</ButtonTailwind>
+            <ButtonTailwind variant="outline">Outline</ButtonTailwind>
+            <ButtonTailwind variant="ghost">Ghost</ButtonTailwind>
+            <ButtonTailwind variant="primary" disabled>
+              Disabled
+            </ButtonTailwind>
           </div>
         </div>
       </div>
