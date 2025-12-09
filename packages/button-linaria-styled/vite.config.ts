@@ -11,16 +11,16 @@ export default defineConfig({
 
   plugins: [
     react(),
+    nxViteTsPaths(),
+    dts({
+      entryRoot: 'src',
+      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
+    }),
     linaria({
       include: ['**/*.{ts,tsx}'],
       babelOptions: {
         presets: ['@babel/preset-typescript', '@babel/preset-react'],
       },
-    }),
-    nxViteTsPaths(),
-    dts({
-      entryRoot: 'src',
-      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
 

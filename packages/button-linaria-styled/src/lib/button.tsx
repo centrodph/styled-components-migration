@@ -8,8 +8,8 @@ import { themeTokens } from '@centrodphlibs/linaria-theme';
  * Handles variants and sizes through props
  */
 const StyledButton = styled.button<{
-  $variant: ButtonNamespace.ButtonVariant;
-  $size: ButtonNamespace.ButtonSize;
+  variant: ButtonNamespace.ButtonVariant;
+  size: ButtonNamespace.ButtonSize;
 }>`
   display: inline-flex;
   align-items: center;
@@ -37,7 +37,7 @@ const StyledButton = styled.button<{
 
   /* Variant styles */
   ${(props) => {
-    switch (props.$variant) {
+    switch (props.variant) {
       case 'primary':
         return `background-color: ${themeTokens.colors.primary};
           color: ${themeTokens.colors.background};
@@ -82,7 +82,7 @@ const StyledButton = styled.button<{
 
   /* Size styles */
   ${(props) => {
-    switch (props.$size) {
+    switch (props.size) {
       case 'small':
         return `padding: ${themeTokens.spacing.m} ${themeTokens.spacing.l};
           font-size: 14px;
@@ -115,8 +115,8 @@ export const Button = (props: ButtonNamespace.ButtonProps) => {
 
   return (
     <StyledButton
-      $variant={variant}
-      $size={size}
+      variant={variant}
+      size={size}
       {...rest}
     >
       {children}
