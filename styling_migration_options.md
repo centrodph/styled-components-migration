@@ -57,6 +57,11 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 **Approach:** Utility-first CSS framework where styles are expressed as composable class names in markup and compiled to static CSS at build time.
 
+- **Ecosystem maturity and documentation:** Tailwind has a very large community, extensive official documentation, and many third-party plugins and UI kits. This reduces the risk of adopting the framework and makes it easier to onboard new engineers. ([plugin system](https://tailwindcss.com/docs/plugins))
+- **Lintable class syntax using editor tooling:** Editor extensions such as Tailwind IntelliSense provide autocompletion and validation of classes during development, which helps avoid typos and ensures that only valid utilities from the configured design tokens are used. ([IntelliSense](https://tailwindcss.com/docs/editor-setup))
+- **Strong static analysis via config validation:** Because all utilities are derived from a single configuration file, changes can be reviewed, linted, and validated in CI, and style changes can be traced back to config updates rather than being scattered across the codebase.
+
+
 ### Runtime Performance
 
 - **Runtime overhead: 10/10** - Tailwind generates all utility classes at build time and removes unused ones during the production build, so there is no JavaScript-based style engine running in the browser. This aligns well with React 19 and the React Compiler, which prefer static analysis of UI code. ([Optimizing for Production](https://tailwindcss.com/docs/optimizing-for-production))
@@ -66,9 +71,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Design token support: 9/10** - The `tailwind.config` file becomes the single source of truth for spacing, colors, typography, breakpoints, etc. This effectively turns the config into a central design token registry that can be shared across the app and across teams. Minor limitation: tokens are defined in JavaScript config rather than a more formal token system. ([Theme Configuration](https://tailwindcss.com/docs/theme))
 - **Light/dark mode support: 9/10** - Tailwind provides built-in support for dark mode using class-based or media-based strategies. Variants like `dark:` are well-integrated and work seamlessly with the utility system. ([Dark Mode](https://tailwindcss.com/docs/dark-mode))
-- **Ecosystem maturity and documentation:** Tailwind has a very large community, extensive official documentation, and many third-party plugins and UI kits. This reduces the risk of adopting the framework and makes it easier to onboard new engineers. ([plugin system](https://tailwindcss.com/docs/plugins))
-- **Lintable class syntax using editor tooling:** Editor extensions such as Tailwind IntelliSense provide autocompletion and validation of classes during development, which helps avoid typos and ensures that only valid utilities from the configured design tokens are used. ([IntelliSense](https://tailwindcss.com/docs/editor-setup))
-- **Strong static analysis via config validation:** Because all utilities are derived from a single configuration file, changes can be reviewed, linted, and validated in CI, and style changes can be traced back to config updates rather than being scattered across the codebase.
+
 
 - **Contextual theming: 4/10** - Tailwind does not provide a concept like a theme provider that can change tokens contextually in a subtree. Theming is primarily done globally via configuration and class switches (e.g. toggling a `dark` class on the root). This can be limiting for use cases where different sections of a page need different theme values. Workarounds exist but require manual CSS variable management.
 
@@ -102,7 +105,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Build tool integration: 8/10** - Tailwind requires PostCSS and works with most modern bundlers (Vite, Webpack, etc.). Setup is straightforward but requires configuration. The integration is well-documented and stable. ([Installation Guide](https://tailwindcss.com/docs/installation))
 
-- **Dependencies: 7/10** - Requires PostCSS and the Tailwind CLI or plugin. Additional dependencies are minimal, but the build process needs proper configuration. Some complexity arises from needing to configure content paths for purging unused styles.
+- **Dependencies: 5/10** - Requires PostCSS and the Tailwind CLI or plugin as external dependencies. The build process requires significant configuration including PostCSS config, Tailwind config file, and content path configuration for purging unused styles. Application-side configuration needed in `tailwind.config.js`. Multiple build-time dependencies and setup complexity.
 
 ### React 19 & Future Compatibility
 
@@ -138,13 +141,13 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Developer Experience | Build-time safety | 8/10 |
 | Developer Experience | Documentation and ecosystem | 10/10 |
 | Technical Requirements | Build tool integration | 8/10 |
-| Technical Requirements | Dependencies | 7/10 |
+| Technical Requirements | Dependencies | 5/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 10/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
 | Risk Assessment | Vendor lock-in risk | 4/10 |
 | Risk Assessment | Future-proofing | 8/10 |
 | Risk Assessment | Breakage risk | 7/10 |
-| **Overall Average** | | **7.6/10** |
+| **Overall Average** | | **7.5/10** |
 
 ---
 - **Vendor lock-in through utility syntax and config:** Tailwind encourages writing layout and visual styling directly as Tailwind-specific class names. While the compiled output is standard CSS, moving away from Tailwind later would mean rewriting a large amount of class-based styling logic to another system. The coupling is more to Tailwind’s mental model and utilities than to raw CSS.
@@ -209,7 +212,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Build tool integration: 7/10** - Vanilla-Extract requires specific bundler plugins or loaders for static extraction. Integrating this into an existing build pipeline (especially a large monorepo) can take time and careful coordination. ([Integration Guides](https://vanilla-extract.style/documentation/integrations/))
 
-- **Dependencies: 8/10** - Requires bundler-specific plugins (Vite, Webpack, etc.) but the core library is lightweight. The build-time processing adds some complexity but doesn't require many runtime dependencies.
+- **Dependencies: 6/10** - Requires bundler-specific plugins (Vite plugin, Webpack loader, etc.) as external dependencies. Each bundler needs its own plugin installation and configuration. Build-time processing requires plugin setup and configuration. Application-side configuration may be needed depending on bundler. Multiple build-time dependencies add complexity.
 
 ### React 19 & Future Compatibility
 
@@ -305,7 +308,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Build tool integration: 6/10** - Linaria relies on code transformation during build to evaluate templates and extract CSS. Projects without a Babel pipeline (or with complex, layered toolchains) may find integration more involved. Requires Babel or compatible setup. ([Installation](https://linaria.dev/docs/getting-started))
 
-- **Dependencies: 7/10** - Requires Babel and Linaria plugins. The setup adds complexity to the build pipeline, but once configured, it works reliably. Some projects may need to adjust their build configuration.
+- **Dependencies: 5/10** - Requires Babel and Linaria plugins as external dependencies. The setup adds significant complexity to the build pipeline with Babel configuration and Linaria plugin setup. Build-time transformation requires additional tooling. Some projects may need to adjust their build configuration. Multiple build-time dependencies and configuration overhead.
 
 ### React 19 & Future Compatibility
 
@@ -341,13 +344,13 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Developer Experience | Build-time safety | 7/10 |
 | Developer Experience | Documentation and ecosystem | 6/10 |
 | Technical Requirements | Build tool integration | 6/10 |
-| Technical Requirements | Dependencies | 7/10 |
+| Technical Requirements | Dependencies | 5/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 9/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 9/10 |
 | Risk Assessment | Vendor lock-in risk | 5/10 |
 | Risk Assessment | Future-proofing | 7/10 |
 | Risk Assessment | Breakage risk | 7/10 |
-| **Overall Average** | | **7.4/10** |
+| **Overall Average** | | **7.3/10** |
 
 ---
 
@@ -404,7 +407,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Build tool integration: 8/10** - Stitches works with standard React setups and doesn't require special build configuration. It's a runtime library that integrates easily with most bundlers.
 
-- **Dependencies: 7/10** - Requires React and Stitches runtime. The library is relatively lightweight for a runtime CSS-in-JS solution, but still adds JavaScript bundle size.
+- **Dependencies: 6/10** - Requires React and Stitches runtime as external dependencies. The library adds JavaScript bundle size and runtime overhead. While setup is simpler than build-time solutions, it still requires installing and configuring the Stitches library. Runtime dependency adds to application bundle.
 
 ### React 19 & Future Compatibility
 
@@ -440,13 +443,13 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Developer Experience | Build-time safety | 4/10 |
 | Developer Experience | Documentation and ecosystem | 5/10 |
 | Technical Requirements | Build tool integration | 8/10 |
-| Technical Requirements | Dependencies | 7/10 |
+| Technical Requirements | Dependencies | 6/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 2/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 2/10 |
 | Risk Assessment | Vendor lock-in risk | 3/10 |
 | Risk Assessment | Future-proofing | 2/10 |
 | Risk Assessment | Breakage risk | 6/10 |
-| **Overall Average** | | **5.9/10** |
+| **Overall Average** | | **5.8/10** |
 
 ---
 
@@ -572,11 +575,11 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 | Library | Runtime Performance | Theming Support | Component Architecture | Migration & Adoption | Developer Experience | Technical Requirements | React 19 & Future Compatibility | Risk Assessment | Overall Score |
 |---------|---------------------|-----------------|----------------------|---------------------|---------------------|----------------------|-------------------------------|-----------------|--------------|
-| **Tailwind CSS** | 10.0/10 | 7.3/10 | 6.0/10 | 6.0/10 | 9.3/10 | 7.5/10 | 10.0/10 | 6.3/10 | **7.6/10** |
-| **Vanilla-Extract** | 10.0/10 | 9.0/10 | 7.7/10 | 6.7/10 | 8.5/10 | 7.5/10 | 10.0/10 | 8.7/10 | **8.4/10** |
-| **Linaria** | 10.0/10 | 6.0/10 | 7.3/10 | 8.7/10 | 6.8/10 | 6.5/10 | 9.0/10 | 6.3/10 | **7.4/10** |
-| **Stitches** | 2.5/10 | 7.3/10 | 8.3/10 | 8.7/10 | 5.8/10 | 7.5/10 | 2.0/10 | 3.7/10 | **5.9/10** |
-| **Emotion** | 1.5/10 | 7.7/10 | 8.7/10 | 9.3/10 | 5.0/10 | 7.0/10 | 1.0/10 | 3.0/10 | **6.0/10** |
+| **Tailwind CSS** | 10.0/10 | 7.3/10 | 6.0/10 | 6.0/10 | 9.3/10 | 6.5/10 | 10.0/10 | 6.3/10 | **7.5/10** |
+| **Vanilla-Extract** | 10.0/10 | 9.0/10 | 7.7/10 | 6.7/10 | 8.5/10 | 6.5/10 | 10.0/10 | 8.7/10 | **8.3/10** |
+| **Linaria** | 10.0/10 | 6.0/10 | 7.3/10 | 8.7/10 | 6.8/10 | 5.5/10 | 9.0/10 | 6.3/10 | **7.3/10** |
+| **Stitches** | 2.5/10 | 7.3/10 | 8.3/10 | 8.7/10 | 5.8/10 | 7.0/10 | 2.0/10 | 3.7/10 | **5.8/10** |
+| **Emotion** | 1.5/10 | 7.7/10 | 8.7/10 | 9.3/10 | 5.0/10 | 6.5/10 | 1.0/10 | 3.0/10 | **5.9/10** |
 | **CSS Modules** | 10.0/10 | 6.3/10 | 7.0/10 | 7.7/10 | 8.5/10 | 10.0/10 | 10.0/10 | 9.7/10 | **8.3/10** |
 
 *Note: Category scores are averages of sub-criteria scores. Stitches is no longer maintained (as of June 2023).*
