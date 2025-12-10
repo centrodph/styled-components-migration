@@ -116,34 +116,6 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Breakage risk: 7/10** - Migration between major versions can require config rewrites. Since all generated classes depend on the Tailwind configuration and any plugins, updates to those (or to Tailwind itself) can have wide-reaching effects, potentially changing generated CSS or breaking builds if the configuration is no longer valid. However, the upgrade process is well-documented.
 
-### Summary Scoring Table
-
-| Criteria Category | Sub-Criteria | Score |
-|------------------|--------------|-------|
-| Runtime Performance | Runtime overhead | 10/10 |
-| Runtime Performance | Build-time vs runtime characteristics | 10/10 |
-| Theming Support | Design token support | 9/10 |
-| Theming Support | Light/dark mode support | 9/10 |
-| Theming Support | Contextual theming | 4/10 |
-| Component Architecture | Component encapsulation | 5/10 |
-| Component Architecture | Slot-based composition | 6/10 |
-| Component Architecture | Dynamic/prop-based styling | 7/10 |
-| Migration & Adoption | Per-component migration feasibility | 9/10 |
-| Migration & Adoption | Syntax familiarity | 3/10 |
-| Migration & Adoption | Migration complexity | 6/10 |
-| Developer Experience | Linting and static analysis | 9/10 |
-| Developer Experience | Editor tooling | 10/10 |
-| Developer Experience | Build-time safety | 8/10 |
-| Developer Experience | Documentation and ecosystem | 10/10 |
-| Technical Requirements | Build tool integration | 8/10 |
-| Technical Requirements | Dependencies | 5/10 |
-| React 19 & Future Compatibility | React 19 compatibility | 10/10 |
-| React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
-| Risk Assessment | Vendor lock-in risk | 4/10 |
-| Risk Assessment | Future-proofing | 8/10 |
-| Risk Assessment | Breakage risk | 7/10 |
-| **Overall Average** | | **7.5/10** |
-
 ---
 
 ## 2. **Vanilla-Extract**
@@ -212,34 +184,6 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Breakage risk: 8/10** - Vanilla-Extract is relatively stable, but bundler integration changes could require updates. The API is well-designed and breaking changes are infrequent. The build-time nature means changes are caught early.
 
-### Summary Scoring Table
-
-| Criteria Category | Sub-Criteria | Score |
-|------------------|--------------|-------|
-| Runtime Performance | Runtime overhead | 10/10 |
-| Runtime Performance | Build-time vs runtime characteristics | 10/10 |
-| Theming Support | Design token support | 10/10 |
-| Theming Support | Light/dark mode support | 9/10 |
-| Theming Support | Contextual theming | 8/10 |
-| Component Architecture | Component encapsulation | 9/10 |
-| Component Architecture | Slot-based composition | 8/10 |
-| Component Architecture | Dynamic/prop-based styling | 6/10 |
-| Migration & Adoption | Per-component migration feasibility | 9/10 |
-| Migration & Adoption | Syntax familiarity | 4/10 |
-| Migration & Adoption | Migration complexity | 7/10 |
-| Developer Experience | Linting and static analysis | 10/10 |
-| Developer Experience | Editor tooling | 8/10 |
-| Developer Experience | Build-time safety | 10/10 |
-| Developer Experience | Documentation and ecosystem | 6/10 |
-| Technical Requirements | Build tool integration | 7/10 |
-| Technical Requirements | Dependencies | 6/10 |
-| React 19 & Future Compatibility | React 19 compatibility | 10/10 |
-| React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
-| Risk Assessment | Vendor lock-in risk | 9/10 |
-| Risk Assessment | Future-proofing | 9/10 |
-| Risk Assessment | Breakage risk | 8/10 |
-| **Overall Average** | | **8.3/10** |
-
 ---
 
 ## 3. **Linaria**
@@ -307,34 +251,6 @@ Each option below is evaluated based on the following comprehensive criteria:
 - **Future-proofing: 7/10** - Linaria is actively maintained and aligns with static CSS trends. The zero-runtime approach is future-proof. However, the smaller community and Babel dependency add some risk compared to larger ecosystems.
 
 - **Breakage risk: 7/10** - Linaria can only evaluate expressions that are static at build time. Using runtime values in styles can cause build failures. Teams must adjust patterns to ensure only compile-time-safe expressions are used. The Babel transformation adds a potential point of failure.
-
-### Summary Scoring Table
-
-| Criteria Category | Sub-Criteria | Score |
-|------------------|--------------|-------|
-| Runtime Performance | Runtime overhead | 10/10 |
-| Runtime Performance | Build-time vs runtime characteristics | 10/10 |
-| Theming Support | Design token support | 5/10 |
-| Theming Support | Light/dark mode support | 6/10 |
-| Theming Support | Contextual theming | 7/10 |
-| Component Architecture | Component encapsulation | 8/10 |
-| Component Architecture | Slot-based composition | 7/10 |
-| Component Architecture | Dynamic/prop-based styling | 7/10 |
-| Migration & Adoption | Per-component migration feasibility | 9/10 |
-| Migration & Adoption | Syntax familiarity | 9/10 |
-| Migration & Adoption | Migration complexity | 8/10 |
-| Developer Experience | Linting and static analysis | 8/10 |
-| Developer Experience | Editor tooling | 6/10 |
-| Developer Experience | Build-time safety | 7/10 |
-| Developer Experience | Documentation and ecosystem | 6/10 |
-| Technical Requirements | Build tool integration | 6/10 |
-| Technical Requirements | Dependencies | 5/10 |
-| React 19 & Future Compatibility | React 19 compatibility | 9/10 |
-| React 19 & Future Compatibility | Static analysis compatibility | 9/10 |
-| Risk Assessment | Vendor lock-in risk | 5/10 |
-| Risk Assessment | Future-proofing | 7/10 |
-| Risk Assessment | Breakage risk | 7/10 |
-| **Overall Average** | | **7.3/10** |
 
 ---
 
@@ -427,34 +343,6 @@ Each option below is evaluated based on the following comprehensive criteria:
 - **Future-proofing: 10/10** - CSS Modules are based on standard CSS and are supported natively by all modern bundlers. This is a stable, future-proof approach that will remain compatible with future React versions and web standards. Excellent long-term viability.
 
 - **Breakage risk: 9/10** - CSS Modules are very stable and unlikely to break with future updates. The approach is mature and well-established. Minimal breakage risk.
-
-### Summary Scoring Table
-
-| Criteria Category | Sub-Criteria | Score |
-|------------------|--------------|-------|
-| Runtime Performance | Runtime overhead | 10/10 |
-| Runtime Performance | Build-time vs runtime characteristics | 10/10 |
-| Theming Support | Design token support | 5/10 |
-| Theming Support | Light/dark mode support | 7/10 |
-| Theming Support | Contextual theming | 7/10 |
-| Component Architecture | Component encapsulation | 10/10 |
-| Component Architecture | Slot-based composition | 7/10 |
-| Component Architecture | Dynamic/prop-based styling | 4/10 |
-| Migration & Adoption | Per-component migration feasibility | 10/10 |
-| Migration & Adoption | Syntax familiarity | 6/10 |
-| Migration & Adoption | Migration complexity | 7/10 |
-| Developer Experience | Linting and static analysis | 9/10 |
-| Developer Experience | Editor tooling | 8/10 |
-| Developer Experience | Build-time safety | 9/10 |
-| Developer Experience | Documentation and ecosystem | 8/10 |
-| Technical Requirements | Build tool integration | 10/10 |
-| Technical Requirements | Dependencies | 10/10 |
-| React 19 & Future Compatibility | React 19 compatibility | 10/10 |
-| React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
-| Risk Assessment | Vendor lock-in risk | 10/10 |
-| Risk Assessment | Future-proofing | 10/10 |
-| Risk Assessment | Breakage risk | 9/10 |
-| **Overall Average** | | **8.3/10** |
 
 ---
 
