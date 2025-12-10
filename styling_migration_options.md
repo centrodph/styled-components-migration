@@ -57,11 +57,6 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 **Approach:** Utility-first CSS framework where styles are expressed as composable class names in markup and compiled to static CSS at build time.
 
-- **Ecosystem maturity and documentation:** Tailwind has a very large community, extensive official documentation, and many third-party plugins and UI kits. This reduces the risk of adopting the framework and makes it easier to onboard new engineers. ([plugin system](https://tailwindcss.com/docs/plugins))
-- **Lintable class syntax using editor tooling:** Editor extensions such as Tailwind IntelliSense provide autocompletion and validation of classes during development, which helps avoid typos and ensures that only valid utilities from the configured design tokens are used. ([IntelliSense](https://tailwindcss.com/docs/editor-setup))
-- **Strong static analysis via config validation:** Because all utilities are derived from a single configuration file, changes can be reviewed, linted, and validated in CI, and style changes can be traced back to config updates rather than being scattered across the codebase.
-
-
 ### Runtime Performance
 
 - **Runtime overhead: 10/10** - Tailwind generates all utility classes at build time and removes unused ones during the production build, so there is no JavaScript-based style engine running in the browser. This aligns well with React 19 and the React Compiler, which prefer static analysis of UI code. ([Optimizing for Production](https://tailwindcss.com/docs/optimizing-for-production))
@@ -150,12 +145,6 @@ Each option below is evaluated based on the following comprehensive criteria:
 | **Overall Average** | | **7.5/10** |
 
 ---
-- **Vendor lock-in through utility syntax and config:** Tailwind encourages writing layout and visual styling directly as Tailwind-specific class names. While the compiled output is standard CSS, moving away from Tailwind later would mean rewriting a large amount of class-based styling logic to another system. The coupling is more to Tailwind’s mental model and utilities than to raw CSS.
-- **Application-oriented design makes slot-based composition harder:** Tailwind is highly optimized for application UIs where components are relatively shallow and styling is close to the markup. For a design system that exposes deep component slots (e.g. internal parts of complex widgets), expressing slot-level overrides purely via utilities can become cumbersome and may require custom wrapper components or additional composition conventions.
-- **Limited contextual theming support:** Tailwind does not provide a concept like a theme provider that can change tokens contextually in a subtree. Theming is primarily done globally via configuration and class switches (e.g. toggling a `dark` class on the root). This can be limiting for use cases where different sections of a page need different theme values.
-- **No style encapsulation per component without discipline:** Tailwind does not enforce per-component style boundaries; the same utilities can be used everywhere. Encapsulation relies on conventions (e.g. using composition components or helper functions) and code review, which can be harder to enforce in a large design system.
-
----
 
 ## 2. **Vanilla-Extract**
 
@@ -165,12 +154,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Runtime Performance
 
-- **Fully static CSS generation:** Styles are authored in `.css`-like objects in code, but Vanilla-Extract compiles them into real CSS files at build time. At runtime, components simply reference generated class names, which makes the styling system completely passive and safe under React 19’s static analysis model. ([overview](https://vanilla-extract.style/documentation/getting-started/))
-- **Strict build-time safety and lint support:** Because styles live in regular code files, existing linting and static analysis tooling can catch mistakes early (e.g., referencing a non-existent token or using invalid property names). Errors are surfaced during development or CI, not at runtime.
-- **Theme contracts encourage consistent token usage:** Vanilla-Extract’s theming system is based on typed theme contracts that define the structure of allowed tokens (colors, spacing, typography, etc.). Components reference these tokens via generated variables, which prevents ad-hoc values and keeps the system aligned with design tokens. ([theming](https://vanilla-extract.style/documentation/theming/))
-- **CSS-modules-style co-location for styles:** Styles are usually defined in `.css.ts` files next to the component modules and exported as class names. This provides encapsulation similar to CSS Modules but with the additional benefits of code-level composition and theming support.
-- **Vendor-agnostic, low coupling:** The compiled CSS is plain, framework-agnostic styles; components are simply wired to class strings. If a future migration away from Vanilla-Extract is needed, the output CSS can be reused or incrementally replaced, without being tied to a particular runtime styling engine.
-- **First-class support for React 19 and server components:** The zero-runtime model, combined with static extraction, makes Vanilla-Extract a strong fit for Server Components and the React Compiler, which favor code that can be fully evaluated ahead of time.
+- **Runtime overhead: 10/10** - Vanilla-Extract compiles styles into real CSS files at build time. At runtime, components simply reference generated class names, making the styling system completely passive with zero runtime overhead. No JavaScript-based style engine runs in the browser. ([Overview](https://vanilla-extract.style/documentation/getting-started/))
 
 - **Build-time vs runtime characteristics: 10/10** - All style processing happens at build time. The compiled CSS is static and requires zero runtime JavaScript execution. This makes Vanilla-Extract ideal for Server Components and static optimization.
 
@@ -248,13 +232,13 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Developer Experience | Build-time safety | 10/10 |
 | Developer Experience | Documentation and ecosystem | 6/10 |
 | Technical Requirements | Build tool integration | 7/10 |
-| Technical Requirements | Dependencies | 8/10 |
+| Technical Requirements | Dependencies | 6/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 10/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
 | Risk Assessment | Vendor lock-in risk | 9/10 |
 | Risk Assessment | Future-proofing | 9/10 |
 | Risk Assessment | Breakage risk | 8/10 |
-| **Overall Average** | | **8.4/10** |
+| **Overall Average** | | **8.3/10** |
 
 ---
 
