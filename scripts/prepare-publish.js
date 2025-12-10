@@ -15,11 +15,14 @@ const path = require('path');
 const packages = [
   'button-vanilla-extract',
   'button-linaria',
+  'button-linaria-styled',
   'button-css-modules',
+  'button-tailwind',
   'theme',
   'vanilla-extract-theme',
   'linaria-theme',
   'css-modules-theme',
+  'tailwind-theme',
 ];
 
 /**
