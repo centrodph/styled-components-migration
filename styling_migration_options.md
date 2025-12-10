@@ -111,7 +111,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Risk Assessment
 
-- **Vendor lock-in risk: 6/10** - Tailwind encourages writing layout and visual styling directly as Tailwind-specific class names. While the compiled output is standard CSS, moving away from Tailwind later would mean rewriting a large amount of class-based styling logic to another system. The coupling is more to Tailwind's mental model and utilities than to raw CSS.
+- **Vendor lock-in risk: 4/10** - Tailwind encourages writing layout and visual styling directly as Tailwind-specific class names. While the compiled output is standard CSS, moving away from Tailwind later would mean rewriting a large amount of class-based styling logic to another system. The coupling is more to Tailwind's mental model and utilities than to raw CSS. Medium-high vendor lock-in risk.
 
 - **Future-proofing: 8/10** - Tailwind is actively maintained and has a large community. The utility-first approach aligns with modern web development trends. However, build-time fragility due to config and plugins means updates to Tailwind or plugins can have wide-reaching effects. ([Upgrade Guides](https://tailwindcss.com/docs/upgrade-guide))
 
@@ -140,10 +140,10 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Technical Requirements | Dependencies | 7/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 10/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
-| Risk Assessment | Vendor lock-in risk | 6/10 |
+| Risk Assessment | Vendor lock-in risk | 4/10 |
 | Risk Assessment | Future-proofing | 8/10 |
 | Risk Assessment | Breakage risk | 7/10 |
-| **Overall Average** | | **7.7/10** |
+| **Overall Average** | | **7.6/10** |
 
 ---
 - **Vendor lock-in through utility syntax and config:** Tailwind encourages writing layout and visual styling directly as Tailwind-specific class names. While the compiled output is standard CSS, moving away from Tailwind later would mean rewriting a large amount of class-based styling logic to another system. The coupling is more to Tailwind’s mental model and utilities than to raw CSS.
@@ -218,7 +218,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Risk Assessment
 
-- **Vendor lock-in risk: 3/10** - The compiled CSS is plain, framework-agnostic styles; components are simply wired to class strings. If a future migration away from Vanilla-Extract is needed, the output CSS can be reused or incrementally replaced, without being tied to a particular runtime styling engine. Very low vendor lock-in.
+- **Vendor lock-in risk: 9/10** - The compiled CSS is plain, framework-agnostic styles; components are simply wired to class strings. If a future migration away from Vanilla-Extract is needed, the output CSS can be reused or incrementally replaced, without being tied to a particular runtime styling engine. Very low vendor lock-in, making it easy to migrate away if needed.
 
 - **Future-proofing: 9/10** - Vanilla-Extract is actively maintained and aligns perfectly with modern web development trends toward static CSS. The zero-runtime approach is future-proof. The main risk is smaller community size compared to larger ecosystems.
 
@@ -247,10 +247,10 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Technical Requirements | Dependencies | 8/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 10/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
-| Risk Assessment | Vendor lock-in risk | 3/10 |
+| Risk Assessment | Vendor lock-in risk | 9/10 |
 | Risk Assessment | Future-proofing | 9/10 |
 | Risk Assessment | Breakage risk | 8/10 |
-| **Overall Average** | | **8.2/10** |
+| **Overall Average** | | **8.4/10** |
 
 ---
 
@@ -314,7 +314,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Risk Assessment
 
-- **Vendor lock-in risk: 6/10** - Even though the output CSS is static, the source code ends up written in Linaria-specific tagged template forms. Migrating away later would require updating these templates to another API or to a static CSS approach. Moderate lock-in due to syntax.
+- **Vendor lock-in risk: 5/10** - Even though the output CSS is static, the source code ends up written in Linaria-specific tagged template forms. Migrating away later would require updating these templates to another API or to a static CSS approach. Moderate lock-in due to syntax, requiring significant refactoring to migrate away.
 
 - **Future-proofing: 7/10** - Linaria is actively maintained and aligns with static CSS trends. The zero-runtime approach is future-proof. However, the smaller community and Babel dependency add some risk compared to larger ecosystems.
 
@@ -343,10 +343,10 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Technical Requirements | Dependencies | 7/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 9/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 9/10 |
-| Risk Assessment | Vendor lock-in risk | 6/10 |
+| Risk Assessment | Vendor lock-in risk | 5/10 |
 | Risk Assessment | Future-proofing | 7/10 |
 | Risk Assessment | Breakage risk | 7/10 |
-| **Overall Average** | | **7.5/10** |
+| **Overall Average** | | **7.4/10** |
 
 ---
 
@@ -413,7 +413,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Risk Assessment
 
-- **Vendor lock-in risk: 7/10** - The Stitches API is a custom abstraction over CSS and tokens. If the project later needs to move to a different styling model, migrating away from Stitches will require translating variant definitions and token usage into new patterns. Moderate lock-in.
+- **Vendor lock-in risk: 3/10** - The Stitches API is a custom abstraction over CSS and tokens. If the project later needs to move to a different styling model, migrating away from Stitches will require translating variant definitions and token usage into new patterns. High vendor lock-in risk due to custom API and abstraction layer.
 
 - **Future-proofing: 2/10** - **Stitches is no longer actively maintained**, which is a critical concern. As React and bundlers evolve toward more static optimization, any runtime styling library risks incompatibility. Stitches may require future adaptation or replacement to operate comfortably in a React 19+ ecosystem. Not recommended for new projects.
 
@@ -442,10 +442,10 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Technical Requirements | Dependencies | 7/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 2/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 2/10 |
-| Risk Assessment | Vendor lock-in risk | 7/10 |
+| Risk Assessment | Vendor lock-in risk | 3/10 |
 | Risk Assessment | Future-proofing | 2/10 |
 | Risk Assessment | Breakage risk | 6/10 |
-| **Overall Average** | | **6.1/10** |
+| **Overall Average** | | **5.9/10** |
 
 ---
 
@@ -465,7 +465,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 **Cons:**
 
 - **Heavy runtime injection and dynamic evaluation:** Emotion computes styles at runtime, injecting them into the DOM using a style engine. This adds overhead to rendering and is fundamentally at odds with React 19’s preference for static analysis and precomputation.
-- **Vendor lock-in through API and theming model:** Code written with Emotion often uses Emotion-specific helpers, `css` props, and theming patterns. Moving away from Emotion later would likely require significant refactoring, especially for components that rely heavily on dynamic style expressions.
+- **Vendor lock-in risk: 2/10** - Code written with Emotion often uses Emotion-specific helpers, `css` props, and theming patterns. Moving away from Emotion later would likely require significant refactoring, especially for components that rely heavily on dynamic style expressions. High vendor lock-in risk due to proprietary API and runtime dependencies.
 - **Hard to statically lint or analyze:** Because styles are expressed via runtime expressions, many potential issues (such as invalid tokens or unexpected dynamic values) only surface at runtime. Static analysis tools have limited ability to fully understand the resulting CSS.
 - **Conflicts with React 19’s static compiler model:** The React Compiler is designed around the assumption that components do not perform complex side effects during render. Runtime style injection can hinder static optimization and may lead to warnings or unsupported configurations as React evolves.
 
@@ -531,7 +531,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Risk Assessment
 
-- **Vendor lock-in risk: 2/10** - CSS Modules do not tie the codebase to any specific UI library or styling paradigm. They can coexist with other solutions during a transition and remain robust even if the underlying UI framework changes. Very low vendor lock-in - it's just CSS.
+- **Vendor lock-in risk: 10/10** - CSS Modules do not tie the codebase to any specific UI library or styling paradigm. They can coexist with other solutions during a transition and remain robust even if the underlying UI framework changes. Virtually no vendor lock-in - it's just standard CSS with no proprietary APIs or abstractions.
 
 - **Future-proofing: 10/10** - CSS Modules are based on standard CSS and are supported natively by all modern bundlers. This is a stable, future-proof approach that will remain compatible with future React versions and web standards. Excellent long-term viability.
 
@@ -560,21 +560,94 @@ Each option below is evaluated based on the following comprehensive criteria:
 | Technical Requirements | Dependencies | 10/10 |
 | React 19 & Future Compatibility | React 19 compatibility | 10/10 |
 | React 19 & Future Compatibility | Static analysis compatibility | 10/10 |
-| Risk Assessment | Vendor lock-in risk | 2/10 |
+| Risk Assessment | Vendor lock-in risk | 10/10 |
 | Risk Assessment | Future-proofing | 10/10 |
 | Risk Assessment | Breakage risk | 9/10 |
-| **Overall Average** | | **8.1/10** |
+| **Overall Average** | | **8.3/10** |
 
 ---
 
 ## Comparison Table
 
+| Library | Runtime Performance | Theming Support | Component Architecture | Migration & Adoption | Developer Experience | Technical Requirements | React 19 & Future Compatibility | Risk Assessment | Overall Score |
+|---------|---------------------|-----------------|----------------------|---------------------|---------------------|----------------------|-------------------------------|-----------------|--------------|
+| **Tailwind CSS** | 10.0/10 | 7.3/10 | 6.0/10 | 6.0/10 | 9.3/10 | 7.5/10 | 10.0/10 | 6.3/10 | **7.6/10** |
+| **Vanilla-Extract** | 10.0/10 | 9.0/10 | 7.7/10 | 6.7/10 | 8.5/10 | 7.5/10 | 10.0/10 | 8.7/10 | **8.4/10** |
+| **Linaria** | 10.0/10 | 6.0/10 | 7.3/10 | 8.7/10 | 6.8/10 | 6.5/10 | 9.0/10 | 6.3/10 | **7.4/10** |
+| **Stitches** | 2.5/10 | 7.3/10 | 8.3/10 | 8.7/10 | 5.8/10 | 7.5/10 | 2.0/10 | 3.7/10 | **5.9/10** |
+| **Emotion** | 1.5/10 | 7.7/10 | 8.7/10 | 9.3/10 | 5.0/10 | 7.0/10 | 1.0/10 | 3.0/10 | **6.0/10** |
+| **CSS Modules** | 10.0/10 | 6.3/10 | 7.0/10 | 7.7/10 | 8.5/10 | 10.0/10 | 10.0/10 | 9.7/10 | **8.3/10** |
+
+*Note: Category scores are averages of sub-criteria scores. Stitches is no longer maintained (as of June 2023).*
+
 ---
 
 ## Recommendations
 
-**Based on Flexibilility**
+### Based on Flexibility
 
-**Based on transition effort**
+**Flexibility** refers to the ability to adapt to different use cases, support various styling patterns, and provide options for customization without being constrained by the library's limitations.
 
-**Based on Future Proof**
+- **Runtime Performance:** **Vanilla-Extract, Tailwind CSS, Linaria, CSS Modules** (tied at 10/10) - All provide zero runtime overhead with full flexibility in how styles are authored. Vanilla-Extract offers the most flexibility with code-based styling while maintaining zero runtime.
+
+- **Theming Support:** **Vanilla-Extract** (9.0/10) - Provides the most flexible theming system with typed theme contracts that enforce consistency while allowing extensive customization. The theme contract system offers both structure and flexibility.
+
+- **Component Architecture:** **Emotion** (8.7/10) - Offers the most flexible component architecture with excellent support for dynamic/prop-based styling (10/10), allowing for complex styling scenarios that adapt to runtime conditions.
+
+- **Migration & Adoption:** **Emotion and Linaria** (tied at 9.3/10 and 8.7/10) - Emotion provides the easiest migration path with near-identical API to styled-components. Linaria offers similar API familiarity with the added benefit of zero runtime.
+
+- **Developer Experience:** **Tailwind CSS** (9.3/10) - Provides the most flexible developer experience with excellent tooling (10/10 editor tooling), extensive ecosystem (10/10 documentation), and strong static analysis capabilities.
+
+- **Technical Requirements:** **CSS Modules** (10/10) - Offers maximum flexibility with zero dependencies and universal bundler support. No vendor-specific requirements or complex setup needed.
+
+- **React 19 & Future Compatibility:** **Vanilla-Extract, Tailwind CSS, CSS Modules** (tied at 10/10) - All provide full compatibility with React 19 while maintaining flexibility in styling approaches.
+
+- **Risk Assessment:** **CSS Modules** (9.7/10) - Lowest vendor lock-in risk (10/10) combined with highest future-proofing (10/10) provides the most flexibility for long-term strategy changes.
+
+### Based on Transition Effort
+
+**Transition Effort** refers to the ease and speed of migrating from styled-components/xstyled, considering syntax familiarity, migration complexity, and incremental adoption feasibility.
+
+- **Runtime Performance:** **Linaria** (10/10) - Zero runtime overhead with minimal transition effort. The API is nearly identical to styled-components, requiring mostly import changes.
+
+- **Theming Support:** **Stitches** (7.3/10) - Built-in token theming system (9/10) with familiar styled-components-like API makes transition straightforward. However, note that Stitches is no longer maintained.
+
+- **Component Architecture:** **Emotion** (8.7/10) - Near-identical API to styled-components (10/10 syntax familiarity) with excellent dynamic styling support. Migration complexity is minimal (9/10).
+
+- **Migration & Adoption:** **Emotion** (9.3/10) - Highest scores across all migration criteria: 9/10 feasibility, 10/10 syntax familiarity, 9/10 migration complexity. The easiest transition from styled-components.
+
+- **Developer Experience:** **Linaria** (6.8/10) - Familiar syntax (9/10) reduces learning curve. Good incremental migration support (9/10 feasibility) allows gradual adoption.
+
+- **Technical Requirements:** **Emotion** (7.0/10) - Works with standard React setups without special build configuration. Easy integration with existing toolchains.
+
+- **React 19 & Future Compatibility:** **Linaria** (9.0/10) - Provides zero runtime benefits while maintaining familiar API. Good balance between transition ease and React 19 compatibility.
+
+- **Risk Assessment:** **Linaria** (6.3/10) - Moderate vendor lock-in (5/10) but familiar syntax (9/10) reduces transition risk. Good incremental migration path.
+
+### Based on Future-Proof
+
+**Future-Proof** refers to long-term viability, alignment with React's direction, maintainability, and resistance to breaking changes as the ecosystem evolves.
+
+- **Runtime Performance:** **Vanilla-Extract, Tailwind CSS, Linaria, CSS Modules** (tied at 10/10) - All provide zero runtime overhead, aligning perfectly with React's direction toward static analysis and Server Components.
+
+- **Theming Support:** **Vanilla-Extract** (9.0/10) - Typed theme contracts provide structure while remaining flexible. Strong design token support (10/10) ensures long-term maintainability.
+
+- **Component Architecture:** **CSS Modules** (7.0/10) - Excellent encapsulation (10/10) with standard CSS ensures long-term compatibility. No dependency on JavaScript runtime patterns that may change.
+
+- **Migration & Adoption:** **CSS Modules** (7.7/10) - Excellent migration feasibility (10/10) with standard CSS ensures components remain maintainable regardless of framework changes.
+
+- **Developer Experience:** **Vanilla-Extract** (8.5/10) - Excellent build-time safety (10/10) and linting (10/10) ensure long-term code quality. TypeScript integration provides future-proof type safety.
+
+- **Technical Requirements:** **CSS Modules** (10/10) - Native bundler support with zero dependencies ensures long-term stability. No risk of dependency abandonment or breaking changes.
+
+- **React 19 & Future Compatibility:** **Vanilla-Extract, Tailwind CSS, CSS Modules** (tied at 10/10) - All fully compatible with React 19 and aligned with React's static analysis direction. Best long-term compatibility.
+
+- **Risk Assessment:** **CSS Modules** (9.7/10) - Highest future-proofing score (10/10) with lowest vendor lock-in risk (10/10). Based on standard CSS, ensuring compatibility with future web standards and React versions.
+
+### Overall Recommendations Summary
+
+**Best for Flexibility:** **Vanilla-Extract** - Combines zero runtime with flexible code-based styling, strong theming system, and excellent developer experience while maintaining React 19 compatibility.
+
+**Best for Transition Effort:** **Emotion or Linaria** - Emotion offers the easiest migration (near-identical API), while Linaria provides similar ease with the added benefit of zero runtime. Choose Emotion for immediate migration ease, or Linaria for a future-proof transition.
+
+**Best for Future-Proof:** **CSS Modules or Vanilla-Extract** - CSS Modules offers the highest future-proofing with standard CSS and zero dependencies. Vanilla-Extract provides excellent future-proofing with modern tooling and React 19 alignment. Both are excellent long-term choices.
