@@ -2,9 +2,10 @@
 
 ### Context
 
-When a design system relies on `styled-components` v5 and `xstyled`, which are no longer actively maintained and present limitations in light of modern frontend trends—particularly with upcoming React 19 features and the React Compiler. This document outlines alternative styling solutions, their compatibility with your needs, pros and cons, potential migration strategies, and React 19 readiness.
+When a design system relies on `styled-components` v5 and `xstyled`, which are no longer actively maintained and present limitations in light of modern frontend trends—particularly with upcoming React 19 features and the React Compiler. 
 
----
+
+
 
 ## Evaluation Criteria
 
