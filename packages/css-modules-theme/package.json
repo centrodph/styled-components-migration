@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/css-modules-theme",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CSS modules theme tokens based on @centrodphlibs/theme",
   "keywords": [
     "css-modules",

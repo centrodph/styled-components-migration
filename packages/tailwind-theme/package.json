@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/tailwind-theme",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tailwind CSS theme configuration based on @centrodphlibs/theme",
   "keywords": [
     "tailwind",

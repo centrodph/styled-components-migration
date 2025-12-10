@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/theme",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Theme data package with colors and spacing units for design systems",
   "keywords": [
     "theme",
