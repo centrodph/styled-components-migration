@@ -35,3 +35,4 @@ export const tailwindConfig: Partial<Config> = {
  */
 export default tailwindConfig;
 
+

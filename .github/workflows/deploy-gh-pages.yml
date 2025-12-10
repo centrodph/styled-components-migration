@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Trigger deployment on push to main branch
+  push:
+    branches:
+      - main
+  # Allow manual workflow dispatch for testing
+  workflow_dispatch:
+
+# Set permissions for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: |
+          # Build all dependencies first
+          pnpm run build:all
+          # Build the app with GitHub Pages base path
+          # For repository root deployment, use BASE_PATH=/
+          # For subdirectory deployment, use BASE_PATH=/repository-name/
+          cd environments/app
+          BASE_PATH=/ pnpm run build
+        env:
+          BASE_PATH: /
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/packages/app
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
