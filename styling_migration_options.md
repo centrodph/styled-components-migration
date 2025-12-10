@@ -338,106 +338,9 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ---
 
-## 4. **Stitches**
 
-[Stitches documentation](https://stitches.dev/docs/introduction)
 
-**Approach:** Runtime-based, atomic CSS-in-JS library with built-in design tokens and variant-driven component APIs.
-
-### Runtime Performance
-
-- **Runtime overhead: 3/10** - Despite being optimized, Stitches still evaluates styling at runtime and injects styles dynamically. This adds JavaScript overhead during rendering and is increasingly at odds with the direction of React 19 and the React Compiler, which favor code that is fully static and side-effect free.
-- **Built-in token theming system:** It supports defining design tokens (colors, spacing, radii, etc.) and creating multiple themes from those tokens. Components consume tokens via a typed API, increasing consistency across the system. ([theming](https://stitches.dev/docs/theming))
-- **Partial linting support via editor tooling and type information:** Stitches integrates well with modern editors and build pipelines so that misuse of tokens or variants can often be caught via static checks and autocompletion, especially when using strict typing and shared token definitions.
-- **Good for small, fast migrations from styled-components:** Stitches’ mental model (styled components with variants) feels familiar to teams used to runtime CSS-in-JS. It can serve as a bridge when the priority is to improve token usage and variants rather than immediately switching to a fully static system.
-
-- **Build-time vs runtime characteristics: 2/10** - Stitches is a runtime CSS-in-JS library. All style processing happens at runtime, requiring JavaScript execution in the browser. This conflicts with React 19's preference for static analysis and pre-rendering.
-
-### Theming Support
-
-- **Design token support: 9/10** - Stitches supports defining design tokens (colors, spacing, radii, etc.) and creating multiple themes from those tokens. Components consume tokens via a typed API, increasing consistency across the system. Excellent built-in token system. ([Theming](https://stitches.dev/docs/theming))
-
-- **Light/dark mode support: 8/10** - Stitches supports multiple themes that can be switched. However, themes are primarily applied via top-level theme classes, which limits fine-grained control compared to provider-based systems.
-
-- **Contextual theming: 5/10** - While Stitches supports multiple themes, they are primarily applied via top-level theme classes. This can limit fine-grained, context-specific theming across nested subtrees compared to systems that allow nested theme providers or granular CSS variable overrides.
-
-### Component Architecture
-
-- **Component encapsulation: 8/10** - Stitches provides component-scoped styles through its styled API. Styles are encapsulated per component, preventing style leakage. The atomic CSS approach ensures efficient style reuse.
-
-- **Slot-based composition: 8/10** - Stitches offers a `styled` function and a powerful variants system that allows defining multiple style variants (size, color, state, etc.) in a single component definition. This matches how many design systems think about component states. ([Variants](https://stitches.dev/docs/variants))
-
-- **Dynamic/prop-based styling: 9/10** - Excellent support for dynamic and prop-based styling through variants and the styled API. Stitches' variant system is particularly well-designed for component state management.
-
-### Migration & Adoption
-
-- **Per-component migration feasibility: 9/10** - Components can be migrated incrementally. Stitches' mental model (styled components with variants) feels familiar to teams used to runtime CSS-in-JS, making migration straightforward.
-
-- **Syntax familiarity: 9/10** - Stitches' API is very similar to styled-components. The `styled` function and variant patterns feel familiar to teams coming from styled-components. Good for small, fast migrations.
-
-- **Migration complexity: 8/10** - Converting styled-components to Stitches is relatively straightforward since the APIs are similar. The main effort is in setting up the token system and converting to variants. Migration is generally smooth.
-
-### Developer Experience
-
-- **Linting and static analysis: 7/10** - Partial linting support via editor tooling and type information. Stitches integrates well with modern editors and build pipelines so that misuse of tokens or variants can often be caught via static checks and autocompletion, especially when using strict typing and shared token definitions.
-
-- **Editor tooling: 7/10** - Good TypeScript support provides autocompletion for tokens and variants. However, no dedicated IDE extension. Relies on TypeScript's type system for tooling support.
-
-- **Build-time safety: 4/10** - Most errors surface at runtime since Stitches processes styles dynamically. TypeScript can catch some issues, but many style problems only appear when components render.
-
-- **Documentation and ecosystem: 5/10** - Stitches has decent documentation, but **the library is no longer actively maintained as of June 2023**. This significantly reduces its viability as a long-term solution. ([Stitches Maintenance Status](https://github.com/stitchesjs/stitches))
-
-### Technical Requirements
-
-- **Build tool integration: 8/10** - Stitches works with standard React setups and doesn't require special build configuration. It's a runtime library that integrates easily with most bundlers.
-
-- **Dependencies: 6/10** - Requires React and Stitches runtime as external dependencies. The library adds JavaScript bundle size and runtime overhead. While setup is simpler than build-time solutions, it still requires installing and configuring the Stitches library. Runtime dependency adds to application bundle.
-
-### React 19 & Future Compatibility
-
-- **React 19 compatibility: 2/10** - Stitches' runtime style injection conflicts with React 19's static compiler model. The React Compiler is designed around the assumption that components do not perform complex side effects during render. Runtime style injection can hinder static optimization.
-
-- **Static analysis compatibility: 2/10** - Not compatible with static optimization and pre-rendering. The runtime nature means styles cannot be fully analyzed ahead of time. This conflicts with Server Components and the React Compiler.
-
-### Risk Assessment
-
-- **Vendor lock-in risk: 3/10** - The Stitches API is a custom abstraction over CSS and tokens. If the project later needs to move to a different styling model, migrating away from Stitches will require translating variant definitions and token usage into new patterns. High vendor lock-in risk due to custom API and abstraction layer.
-
-- **Future-proofing: 2/10** - **Stitches is no longer actively maintained**, which is a critical concern. As React and bundlers evolve toward more static optimization, any runtime styling library risks incompatibility. Stitches may require future adaptation or replacement to operate comfortably in a React 19+ ecosystem. Not recommended for new projects.
-
-- **Breakage risk: 6/10** - As React and bundlers evolve toward more static optimization, any runtime styling library risks incompatibility or degraded performance. The lack of maintenance increases breakage risk significantly.
-
-### Summary Scoring Table
-
-| Criteria Category | Sub-Criteria | Score |
-|------------------|--------------|-------|
-| Runtime Performance | Runtime overhead | 3/10 |
-| Runtime Performance | Build-time vs runtime characteristics | 2/10 |
-| Theming Support | Design token support | 9/10 |
-| Theming Support | Light/dark mode support | 8/10 |
-| Theming Support | Contextual theming | 5/10 |
-| Component Architecture | Component encapsulation | 8/10 |
-| Component Architecture | Slot-based composition | 8/10 |
-| Component Architecture | Dynamic/prop-based styling | 9/10 |
-| Migration & Adoption | Per-component migration feasibility | 9/10 |
-| Migration & Adoption | Syntax familiarity | 9/10 |
-| Migration & Adoption | Migration complexity | 8/10 |
-| Developer Experience | Linting and static analysis | 7/10 |
-| Developer Experience | Editor tooling | 7/10 |
-| Developer Experience | Build-time safety | 4/10 |
-| Developer Experience | Documentation and ecosystem | 5/10 |
-| Technical Requirements | Build tool integration | 8/10 |
-| Technical Requirements | Dependencies | 6/10 |
-| React 19 & Future Compatibility | React 19 compatibility | 2/10 |
-| React 19 & Future Compatibility | Static analysis compatibility | 2/10 |
-| Risk Assessment | Vendor lock-in risk | 3/10 |
-| Risk Assessment | Future-proofing | 2/10 |
-| Risk Assessment | Breakage risk | 6/10 |
-| **Overall Average** | | **5.8/10** |
-
----
-
-## 5. **Emotion**
+## 4. **Emotion**
 
 [Emotion documentation](https://emotion.sh/docs/introduction)
 
@@ -459,7 +362,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ---
 
-## 6. **CSS Modules**
+## 5. **CSS Modules**
 
 [CSS Modules documentation](https://github.com/css-modules/css-modules)
 
@@ -562,11 +465,10 @@ Each option below is evaluated based on the following comprehensive criteria:
 | **Tailwind CSS** | 10.0/10 | 7.3/10 | 6.0/10 | 6.0/10 | 9.3/10 | 6.5/10 | 10.0/10 | 6.3/10 | **7.5/10** |
 | **Vanilla-Extract** | 10.0/10 | 9.0/10 | 7.7/10 | 6.7/10 | 8.5/10 | 6.5/10 | 10.0/10 | 8.7/10 | **8.3/10** |
 | **Linaria** | 10.0/10 | 6.0/10 | 7.3/10 | 8.7/10 | 6.8/10 | 5.5/10 | 9.0/10 | 6.3/10 | **7.3/10** |
-| **Stitches** | 2.5/10 | 7.3/10 | 8.3/10 | 8.7/10 | 5.8/10 | 7.0/10 | 2.0/10 | 3.7/10 | **5.8/10** |
 | **Emotion** | 1.5/10 | 7.7/10 | 8.7/10 | 9.3/10 | 5.0/10 | 6.5/10 | 1.0/10 | 3.0/10 | **5.9/10** |
 | **CSS Modules** | 10.0/10 | 6.3/10 | 7.0/10 | 7.7/10 | 8.5/10 | 10.0/10 | 10.0/10 | 9.7/10 | **8.3/10** |
 
-*Note: Category scores are averages of sub-criteria scores. Stitches is no longer maintained (as of June 2023).*
+*Note: Category scores are averages of sub-criteria scores.*
 
 ---
 
@@ -598,7 +500,7 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 - **Runtime Performance:** **Linaria** (10/10) - Zero runtime overhead with minimal transition effort. The API is nearly identical to styled-components, requiring mostly import changes.
 
-- **Theming Support:** **Stitches** (7.3/10) - Built-in token theming system (9/10) with familiar styled-components-like API makes transition straightforward. However, note that Stitches is no longer maintained.
+- **Theming Support:** **Vanilla-Extract** (9.0/10) - Excellent design token support (10/10) with typed theme contracts. Strong light/dark mode support (9/10) and contextual theming capabilities (8/10). Migration complexity is moderate (7/10) but provides the best theming system among evaluated options.
 
 - **Component Architecture:** **Emotion** (8.7/10) - Near-identical API to styled-components (10/10 syntax familiarity) with excellent dynamic styling support. Migration complexity is minimal (9/10).
 
