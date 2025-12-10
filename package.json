@@ -8,6 +8,7 @@
     "build:all": "nx run-many -t build",
     "test": "nx test",
     "test:all": "nx run-many -t test",
+    "bump:versions": "node scripts/bump-versions.js",
     "prepare:publish": "node scripts/prepare-publish.js",
     "publish:button-vanilla-extract": "npm run prepare:publish && cd dist/packages/button-vanilla-extract && npm publish --access public",
     "publish:button-linaria": "npm run prepare:publish && cd dist/packages/button-linaria && npm publish --access public",
@@ -19,7 +20,7 @@
     "publish:button-linaria-styled": "npm run prepare:publish && cd dist/packages/button-linaria-styled && npm publish --access public",
     "publish:button-tailwind": "npm run prepare:publish && cd dist/packages/button-tailwind && npm publish --access public",
     "publish:tailwind-theme": "npm run prepare:publish && cd dist/packages/tailwind-theme && npm publish --access public",
-    "publish:all": "npm run build:all && npm run prepare:publish && npm run publish:button-vanilla-extract && npm run publish:button-linaria && npm run publish:button-linaria-styled && npm run publish:button-css-modules && npm run publish:button-tailwind && npm run publish:theme && npm run publish:vanilla-extract-theme && npm run publish:linaria-theme && npm run publish:css-modules-theme && npm run publish:tailwind-theme",
+    "publish:all": "npm run build:all && npm run bump:versions && npm run prepare:publish && npm run publish:button-vanilla-extract && npm run publish:button-linaria && npm run publish:button-linaria-styled && npm run publish:button-css-modules && npm run publish:button-tailwind && npm run publish:theme && npm run publish:vanilla-extract-theme && npm run publish:linaria-theme && npm run publish:css-modules-theme && npm run publish:tailwind-theme",
     "prepublishOnly": "npm run build:all && npm run prepare:publish"
   },
   "private": true,
