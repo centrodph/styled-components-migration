@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/theme",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "Theme data package with colors and spacing units for design systems",
   "keywords": [
     "theme",
@@ -26,7 +26,12 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "lib"
+  ],
   "devDependencies": {
     "vite": "~5.0.0"
   },
@@ -38,4 +43,3 @@
     "test": "nx test theme"
   }
 }
-

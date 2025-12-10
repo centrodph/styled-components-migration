@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/vanilla-extract-theme",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "Vanilla-extract theme tokens based on @centrodphlibs/theme",
   "keywords": [
     "vanilla-extract",
@@ -27,7 +27,13 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "style.css",
+    "lib"
+  ],
   "dependencies": {
     "@centrodphlibs/theme": "workspace:*"
   },

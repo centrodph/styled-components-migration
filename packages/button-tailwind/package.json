@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/button-tailwind",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "React button component library using Tailwind CSS",
   "keywords": [
     "react",
@@ -28,7 +28,12 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "lib"
+  ],
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
@@ -45,4 +50,3 @@
     "test": "nx test button-tailwind"
   }
 }
-

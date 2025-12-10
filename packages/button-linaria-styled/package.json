@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/button-linaria-styled",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "React button component library using Linaria styled function",
   "keywords": [
     "react",
@@ -29,7 +29,13 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "style.css",
+    "lib"
+  ],
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
@@ -47,4 +53,3 @@
     "test": "nx test button-linaria-styled"
   }
 }
-

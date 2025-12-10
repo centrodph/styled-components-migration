@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/linaria-theme",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "Linaria theme tokens based on @centrodphlibs/theme",
   "keywords": [
     "linaria",
@@ -27,7 +27,13 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "style.css",
+    "lib"
+  ],
   "peerDependencies": {
     "@centrodphlibs/theme": "workspace:*",
     "linaria": "^5.0.0"
@@ -43,4 +49,3 @@
     "test": "nx test linaria-theme"
   }
 }
-

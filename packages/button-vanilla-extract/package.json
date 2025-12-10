@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/button-vanilla-extract",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "React button component library using vanilla-extract",
   "keywords": [
     "react",
@@ -28,7 +28,13 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "style.css",
+    "lib"
+  ],
   "dependencies": {
     "@centrodphlibs/vanilla-extract-theme": "workspace:*"
   },

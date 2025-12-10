@@ -26,6 +26,79 @@ const packages = [
 ];
 
 /**
+ * Get version for a package by reading its package.json
+ * @param {string} packageName - Name of the package
+ * @returns {string|null} - Version string or null if not found
+ */
+function getPackageVersion(packageName) {
+  try {
+    const packageJsonPath = path.join(__dirname, '..', 'packages', packageName, 'package.json');
+    if (fs.existsSync(packageJsonPath)) {
+      const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8');
+      const packageJson = JSON.parse(packageJsonContent);
+      return packageJson.version || null;
+    }
+  } catch (error) {
+    console.warn(`⚠ Could not read version for ${packageName}:`, error.message);
+  }
+  return null;
+}
+
+/**
+ * Replace workspace:* dependencies with actual version numbers
+ * @param {Object} packageJson - Package.json object to update
+ */
+function replaceWorkspaceDependencies(packageJson) {
+  // Map of package names to their versions
+  const packageVersions = {};
+  
+  // Get versions for all packages
+  packages.forEach(packageName => {
+    const version = getPackageVersion(packageName);
+    if (version) {
+      // Map both full name and short name
+      const fullName = `@centrodphlibs/${packageName}`;
+      packageVersions[fullName] = version;
+      packageVersions[packageName] = version;
+    }
+  });
+
+  /**
+   * Replace workspace:* in a dependencies object
+   * @param {Object} depsObj - Dependencies object (dependencies, peerDependencies, etc.)
+   * @param {string} depType - Type of dependency (for logging)
+   */
+  function replaceInDependencies(depsObj, depType) {
+    if (!depsObj || typeof depsObj !== 'object') {
+      return;
+    }
+
+    for (const packageName in depsObj) {
+      if (depsObj.hasOwnProperty(packageName)) {
+        const versionSpec = depsObj[packageName];
+        
+        if (typeof versionSpec === 'string' && versionSpec === 'workspace:*') {
+          // Try to find version for this package
+          if (packageVersions[packageName]) {
+            depsObj[packageName] = `^${packageVersions[packageName]}`;
+            console.log(`  ✓ Replaced ${depType}.${packageName}: workspace:* → ^${packageVersions[packageName]}`);
+          } else {
+            console.warn(`  ⚠ Could not find version for ${packageName} in ${depType}, keeping workspace:*`);
+          }
+        }
+      }
+    }
+  }
+
+  // Replace in dependencies, peerDependencies, devDependencies, optionalDependencies
+  ['dependencies', 'peerDependencies', 'devDependencies', 'optionalDependencies'].forEach(depType => {
+    if (packageJson[depType]) {
+      replaceInDependencies(packageJson[depType], depType);
+    }
+  });
+}
+
+/**
  * Copy a file from source to destination
  * @param {string} sourcePath - Source file path
  * @param {string} destPath - Destination file path
@@ -114,15 +187,72 @@ function preparePackage(packageName) {
     }
   });
 
-  // Copy the dist folder contents from packages/{name}/dist/ to dist/packages/{name}/dist/
+  // Copy the dist folder contents from packages/{name}/dist/ to dist/packages/{name}/ (root level)
   const sourceDistDir = path.join(packageSourceDir, 'dist');
-  const destDistDir = path.join(packageDistDir, 'dist');
   
   if (fs.existsSync(sourceDistDir)) {
-    console.log(`Copying dist folder from ${sourceDistDir} to ${destDistDir}`);
-    copyDirectory(sourceDistDir, destDistDir);
+    console.log(`Copying dist files from ${sourceDistDir} to ${packageDistDir} (root level)`);
+    // Copy all files from dist folder to root level of package dist directory
+    copyDirectory(sourceDistDir, packageDistDir);
   } else {
     console.warn(`⚠ Dist folder not found: ${sourceDistDir}`);
+  }
+
+  // Update package.json to point to root-level files instead of ./dist/
+  const packageJsonPath = path.join(packageDistDir, 'package.json');
+  if (fs.existsSync(packageJsonPath)) {
+    try {
+      const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8');
+      const packageJson = JSON.parse(packageJsonContent);
+      
+      // Update module, main, types to remove ./dist/ prefix
+      if (packageJson.module && packageJson.module.startsWith('./dist/')) {
+        packageJson.module = packageJson.module.replace('./dist/', './');
+      }
+      if (packageJson.main && packageJson.main.startsWith('./dist/')) {
+        packageJson.main = packageJson.main.replace('./dist/', './');
+      }
+      if (packageJson.types && packageJson.types.startsWith('./dist/')) {
+        packageJson.types = packageJson.types.replace('./dist/', './');
+      }
+      
+      // Update exports paths
+      if (packageJson.exports) {
+        if (typeof packageJson.exports === 'object' && packageJson.exports['.']) {
+          const mainExport = packageJson.exports['.'];
+          if (mainExport.import && mainExport.import.startsWith('./dist/')) {
+            mainExport.import = mainExport.import.replace('./dist/', './');
+          }
+          if (mainExport.require && mainExport.require.startsWith('./dist/')) {
+            mainExport.require = mainExport.require.replace('./dist/', './');
+          }
+          if (mainExport.types && mainExport.types.startsWith('./dist/')) {
+            mainExport.types = mainExport.types.replace('./dist/', './');
+          }
+        }
+        // Update style.css export if it exists
+        if (packageJson.exports['./style.css']) {
+          const stylePath = packageJson.exports['./style.css'];
+          if (typeof stylePath === 'string' && stylePath.startsWith('./dist/')) {
+            packageJson.exports['./style.css'] = stylePath.replace('./dist/', './');
+          }
+        }
+      }
+      
+      // Replace workspace:* dependencies with actual version numbers
+      replaceWorkspaceDependencies(packageJson);
+      
+      // Write updated package.json
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify(packageJson, null, 2) + '\n',
+        'utf8'
+      );
+      console.log(`✓ Updated package.json paths to root level`);
+    } catch (error) {
+      console.error(`✗ Error updating package.json:`, error.message);
+      process.exit(1);
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/css-modules-theme",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "CSS modules theme tokens based on @centrodphlibs/theme",
   "keywords": [
     "css-modules",
@@ -27,7 +27,12 @@
     },
     "./style.css": "./dist/lib/theme.css"
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "lib"
+  ],
   "peerDependencies": {
     "@centrodphlibs/theme": "workspace:*"
   },
@@ -42,4 +47,3 @@
     "test": "nx test css-modules-theme"
   }
 }
-

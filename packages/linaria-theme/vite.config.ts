@@ -7,14 +7,24 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
   root: __dirname,
+  
+  resolve: {
+    alias: {
+      // Alias for Linaria to resolve workspace packages from source
+      '@centrodphlibs/theme': path.resolve(__dirname, '../../theme/src/index.ts'),
+    },
+  },
 
   plugins: [
     linaria({
+      include: ['**/*.{ts,tsx}'],
       babelOptions: {
         presets: [
           ['@babel/preset-typescript', { allowNamespaces: true }],
         ],
       },
+      evaluate: true,
+      displayName: true,
     }),
     nxViteTsPaths(),
     dts({

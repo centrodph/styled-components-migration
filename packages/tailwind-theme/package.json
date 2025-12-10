@@ -1,6 +1,6 @@
 {
   "name": "@centrodphlibs/tailwind-theme",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "Tailwind CSS theme configuration based on @centrodphlibs/theme",
   "keywords": [
     "tailwind",
@@ -26,7 +26,12 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "lib"
+  ],
   "peerDependencies": {
     "@centrodphlibs/theme": "workspace:*",
     "tailwindcss": "^3.0.0"
@@ -42,4 +47,3 @@
     "test": "nx test tailwind-theme"
   }
 }
-
