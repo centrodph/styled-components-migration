@@ -264,17 +264,62 @@ Each option below is evaluated based on the following comprehensive criteria:
 
 ### Runtime Performance
 
-- **Easy styled-components migration:** Emotion’s `styled` API and theming patterns are intentionally similar to styled-components. This allows teams to port components with minimal changes (often just switching imports and adjusting a few helper usages). ([styled API](https://emotion.sh/docs/styled))
-- **Context-based theming via ThemeProvider:** Emotion supports a theme provider that passes theme objects down the React tree, enabling contextual theming per subtree (e.g., different themes for different layouts or micro-frontends). ([theming](https://emotion.sh/docs/theming))
-- **Rich ecosystem and documentation:** Emotion is widely adopted and has extensive documentation, examples, and integrations with other libraries (such as theming systems, UI kits, and testing tools). This lowers the risk of adoption and simplifies onboarding.
-- **Compatible with older React setups and tooling:** Emotion has been used extensively in React 16–18 era projects and integrates with a range of bundlers and toolchains, making it a pragmatic choice when working with legacy code or shared repositories.
+- **Runtime overhead: 2/10** - Emotion computes styles at runtime, injecting them into the DOM using a style engine. This adds overhead to rendering and is fundamentally at odds with React 19's preference for static analysis and precomputation. The runtime style engine adds JavaScript bundle size and execution cost. ([Performance Analysis](https://medium.com/@finnkumar6/the-dark-side-of-css-in-js-unveiling-performance-pitfalls-and-how-to-optimize-your-web-535a8e332a21))
+- **Build-time vs runtime characteristics: 1/10** - Emotion is a runtime CSS-in-JS library. All style processing happens at runtime, requiring JavaScript execution in the browser. This fundamentally conflicts with React 19's preference for static analysis and pre-rendering. No build-time CSS extraction occurs.
 
-**Cons:**
+### Theming Support
 
-- **Heavy runtime injection and dynamic evaluation:** Emotion computes styles at runtime, injecting them into the DOM using a style engine. This adds overhead to rendering and is fundamentally at odds with React 19’s preference for static analysis and precomputation.
+- **Design token support: 6/10** - Emotion does not ship with a built-in design token system. Teams must build their own token abstractions using theme objects. The ThemeProvider allows passing tokens down the tree, but there's no enforced token structure. Requires manual discipline to maintain consistency.
+
+- **Light/dark mode support: 8/10** - Emotion supports context-based theming via ThemeProvider that passes theme objects down the React tree, enabling contextual theming per subtree. This allows for theme switching, though it requires manual implementation. Good support for theme switching patterns. ([Theming](https://emotion.sh/docs/theming))
+
+- **Contextual theming: 9/10** - Emotion supports a theme provider that passes theme objects down the React tree, enabling contextual theming per subtree (e.g., different themes for different layouts or micro-frontends). This is one of Emotion's strongest features, allowing different themes in different parts of the application. ([Theming](https://emotion.sh/docs/theming))
+
+### Component Architecture
+
+- **Component encapsulation: 8/10** - Emotion provides component-scoped styles through its styled API and css prop. Styles are encapsulated per component, preventing style leakage. The runtime injection ensures proper scoping, though the runtime nature means styles are evaluated dynamically.
+
+- **Slot-based composition: 8/10** - Emotion supports composition through styled components and the css prop. Complex component slots can be styled effectively, though the runtime nature means compositions are evaluated dynamically. Good support for component composition patterns.
+
+- **Dynamic/prop-based styling: 10/10** - Excellent support for dynamic and prop-based styling. Emotion computes styles at runtime, allowing for full dynamic expression evaluation. This is Emotion's core strength, enabling styles that adapt to props, state, and runtime conditions. ([Styled API](https://emotion.sh/docs/styled))
+
+### Migration & Adoption
+
+- **Per-component migration feasibility: 9/10** - Components can be migrated incrementally. Emotion's `styled` API and theming patterns are intentionally similar to styled-components, allowing teams to port components with minimal changes (often just switching imports). Excellent for gradual migration.
+
+- **Syntax familiarity: 10/10** - Emotion's `styled` API and theming patterns are intentionally similar to styled-components. This allows teams to port components with minimal changes. Very familiar syntax for styled-components users. The API is nearly identical, requiring mostly import changes.
+
+- **Migration complexity: 9/10** - Converting styled-components to Emotion is very straightforward since the APIs are nearly identical. Often just requires changing imports and adjusting a few helper usages. Minimal migration effort. ([Styled API](https://emotion.sh/docs/styled))
+
+### Developer Experience
+
+- **Linting and static analysis: 3/10** - Hard to statically lint or analyze. Because styles are expressed via runtime expressions, many potential issues (such as invalid tokens or unexpected dynamic values) only surface at runtime. Static analysis tools have limited ability to fully understand the resulting CSS. TypeScript provides some type safety but cannot catch style errors at build time.
+
+- **Editor tooling: 6/10** - Basic editor support through TypeScript types. No dedicated IDE extension. The css prop and styled API work with standard JavaScript/TypeScript tooling but lack specialized autocompletion. Relies on general TypeScript tooling rather than style-specific features.
+
+- **Build-time safety: 2/10** - Most errors surface at runtime since Emotion processes styles dynamically. TypeScript can catch some type issues, but style problems only appear when components render. Very limited build-time safety compared to build-time CSS solutions.
+
+- **Documentation and ecosystem: 9/10** - Emotion is widely adopted and has extensive documentation, examples, and integrations with other libraries (such as theming systems, UI kits, and testing tools). Rich ecosystem lowers the risk of adoption and simplifies onboarding. ([Emotion Documentation](https://emotion.sh/docs/introduction))
+
+### Technical Requirements
+
+- **Build tool integration: 8/10** - Emotion works with standard React setups and integrates with a range of bundlers and toolchains. Compatible with older React setups and tooling, making it a pragmatic choice when working with legacy code or shared repositories. No special build configuration required.
+
+- **Dependencies: 5/10** - Requires React and Emotion runtime as external dependencies (`@emotion/react`, `@emotion/styled`). The library adds significant JavaScript bundle size due to runtime style engine. May require additional Babel plugins for optimal performance. Runtime dependencies add to application bundle size and require application-side setup and configuration.
+
+### React 19 & Future Compatibility
+
+- **React 19 compatibility: 1/10** - Emotion's runtime style injection conflicts severely with React 19's static compiler model. The React Compiler is designed around the assumption that components do not perform complex side effects during render. Runtime style injection can hinder static optimization and may lead to warnings or unsupported configurations as React evolves. ([React 19 Compatibility Issues](https://github.com/emotion-js/emotion/issues/3186))
+
+- **Static analysis compatibility: 1/10** - Not compatible with static optimization and pre-rendering. The runtime nature means styles cannot be fully analyzed ahead of time. This fundamentally conflicts with Server Components and the React Compiler. Styles must be evaluated at runtime, preventing static analysis. ([Performance Concerns](https://medium.com/@finnkumar6/the-dark-side-of-css-in-js-unveiling-performance-pitfalls-and-how-to-optimize-your-web-535a8e332a21))
+
+### Risk Assessment
+
 - **Vendor lock-in risk: 2/10** - Code written with Emotion often uses Emotion-specific helpers, `css` props, and theming patterns. Moving away from Emotion later would likely require significant refactoring, especially for components that rely heavily on dynamic style expressions. High vendor lock-in risk due to proprietary API and runtime dependencies.
-- **Hard to statically lint or analyze:** Because styles are expressed via runtime expressions, many potential issues (such as invalid tokens or unexpected dynamic values) only surface at runtime. Static analysis tools have limited ability to fully understand the resulting CSS.
-- **Conflicts with React 19’s static compiler model:** The React Compiler is designed around the assumption that components do not perform complex side effects during render. Runtime style injection can hinder static optimization and may lead to warnings or unsupported configurations as React evolves.
+
+- **Future-proofing: 2/10** - Emotion's runtime approach is fundamentally at odds with React's direction toward static analysis. As React evolves, runtime CSS-in-JS libraries face increasing compatibility challenges. Not recommended for new projects targeting React 19+. The library may face compatibility issues as React continues to emphasize static optimization.
+
+- **Breakage risk: 5/10** - As React and bundlers evolve toward more static optimization, runtime styling libraries risk incompatibility or degraded performance. Emotion may face increasing challenges with future React versions. TypeScript type issues have been reported with React 19. The runtime nature increases risk of breakage as React evolves.
 
 ---
 
